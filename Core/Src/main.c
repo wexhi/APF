@@ -56,12 +56,13 @@ float Motor2Speed = 0.00;
 uint16_t Timer1Count = 0;
 
 extern tPid pidMotor1Speed, pidMotor2Speed, pidMPU6050YawMovement, pidMPU6050PitchMovement;
-extern Car wheel1, wheel2;
+extern Car wheel;
 
 
 uint8_t OledString[30];
 
 float Mileage = 0.00;
+float S = 0;
 
 extern float Roll, Pitch, Yaw; 
 
@@ -91,13 +92,13 @@ void SystemClock_Config(void);
 
 int XianFu_PWM(int pwm)
 {
-	if (pwm >= 10000)
+	if (pwm >= 8000)
 	{
-		pwm = 10000;
+		pwm = 8000;
 	}
-	else if (pwm <= -10000)
+	else if (pwm <= -8000)
 	{
-		pwm = -10000;
+		pwm = -8000;
 	}
 	return pwm;
 }
@@ -174,15 +175,19 @@ void stop(void)
 	Motor_Control(0, 0);
 }
 
-void MotorTurnAngle(float angle, float speed)
+float MotorTurnAngle(float angle)
 {
 	pidMPU6050YawMovement.target_val = angle;
 	g_fMPU6050YawMovePidOut = PID_Anglerealize(&pidMPU6050YawMovement, Yaw);
-	  
-	g_fMPU6050YawMovePidOut1 = speed - g_fMPU6050YawMovePidOut;
-	g_fMPU6050YawMovePidOut2 = speed + g_fMPU6050YawMovePidOut;
-	MotorPidSetSpeed(g_fMPU6050YawMovePidOut1, g_fMPU6050YawMovePidOut2);
+	
+//	g_fMPU6050YawMovePidOut1 = speed - g_fMPU6050YawMovePidOut;
+//	g_fMPU6050YawMovePidOut2 = speed + g_fMPU6050YawMovePidOut;
+//	MotorPidSetSpeed(g_fMPU6050YawMovePidOut1, g_fMPU6050YawMovePidOut2);
+	
+	return g_fMPU6050YawMovePidOut;
 }
+
+
 
 void Climb (float angle, float speed)
 {
@@ -193,31 +198,7 @@ void Climb (float angle, float speed)
 	MotorPidSetSpeed(g_fMPU6050PitchMovePidOut1, g_fMPU6050PitchMovePidOut2);
 }
 
-void MoveTo(double target_x, double target_y)
-{
-	
-	double delta_x = target_x - current_x;
-	double delta_y = target_y - current_y;
-	
-	if (delta_x == 0 && delta_y == 0)
-	{
-		stop();
-		return;
-	}
-	
-	double distance = sqrt(delta_x * delta_x + delta_y * delta_y);
-	double angle = atan2(delta_y, delta_x) - Yaw;
-	
-	while (Mileage <= distance)
-	{
-		MotorTurnAngle(angle, 3); 
-	}
-	current_x = target_x;
-	current_y = target_y;
-	Mileage = 0;
-	stop();
-	return;
-}
+
 
 void OLED_Show()
 {
@@ -244,6 +225,44 @@ void OLED_Show()
 	OLED_Refresh_Gram();
 }
 
+float MovePidLine(float distance)
+{
+	wheel.target_pos = distance;
+	float res = Position_PID(&wheel, Mileage);
+	return res;
+}
+
+float XianFuSpeed(float speed, float Lim_Speed)
+{
+	if (speed > 3.5)
+	{
+		speed = 3.5;
+	}
+	else if (speed < Lim_Speed && speed > 0)
+	{
+		speed = 0;
+	}
+	return speed;
+}
+
+void MoveTo(float target_x, float target_y, float Lim_Speed)
+{
+	float delta_x = target_x - current_x;
+	float delta_y = target_y - current_y;
+	
+	if (delta_x == 0 && delta_y == 0)
+	{
+		stop();
+		return;
+	}
+	
+	float distance = sqrt(delta_x * delta_x + delta_y * delta_y);
+	float angle = atan2(delta_y, delta_x) - Yaw;
+	float WheelLSpeed = Lim_Speed - MotorTurnAngle(angle) + MovePidLine(distance);
+	float WheelRSpeed = Lim_Speed + MotorTurnAngle(angle) + MovePidLine(distance);
+	WheelLSpeed = XianFuSpeed(WheelLSpeed, Lim_Speed); WheelRSpeed = XianFuSpeed(WheelRSpeed, Lim_Speed);
+	MotorPidSetSpeed(WheelLSpeed, WheelRSpeed);
+}
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -256,7 +275,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		{
 			Encoder1Count = (short)__HAL_TIM_GET_COUNTER(&htim4);
 			Encoder2Count = -(short)__HAL_TIM_GET_COUNTER(&htim8);
-				
+			
 			Motor1Speed = (float)Encoder1Count * 100 / 30 / 13 / 4; 
 			Motor2Speed = (float)Encoder2Count * 100 / 1560;
 			__HAL_TIM_SET_COUNTER(&htim4, 0);
@@ -338,7 +357,7 @@ int main(void)
 	DMP_Init();
 
 	LED1_OFF();
-	
+
 
   /* USER CODE END 2 */
 
@@ -350,9 +369,12 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  OLED_Show();
-	  Read_DMP();
-	  //MoveTo(0, 1);
+	  Read_DMP();;
+	  //MotorTurnAngle(30, 0);
+	  //MotorPidSetSpeed(0, 3);
+	  MoveTo(10, 0, 1);
 	  //delay_ms(50);
+	  
 
   }
   /* USER CODE END 3 */
