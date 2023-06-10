@@ -49,7 +49,7 @@ void PID_init(void)
 	pidMPU6050PitchMovement.err = 0;
 	pidMPU6050PitchMovement.err_last = 0;
 	pidMPU6050PitchMovement.err_sum = 0;
-	pidMPU6050PitchMovement.Kp = 0.08;
+	pidMPU6050PitchMovement.Kp = 0.07;
 	pidMPU6050PitchMovement.Ki = 0;
 	pidMPU6050PitchMovement.Kd = 0.1;
 }

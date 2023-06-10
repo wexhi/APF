@@ -321,7 +321,8 @@ void DMP_Init(void)
 		    DMP_FEATURE_ANDROID_ORIENT | DMP_FEATURE_SEND_RAW_ACCEL | DMP_FEATURE_SEND_CAL_GYRO |
 		    DMP_FEATURE_GYRO_CAL)) {}
 		//	  	 printf("dmp_enable_feature complete ......\r\n");
-		if (!dmp_set_fifo_rate(DEFAULT_MPU_HZ)) {}
+		//if (!dmp_set_fifo_rate(DEFAULT_MPU_HZ)) {}
+		if (!dmp_set_fifo_rate(100)) {}
 		//	  	 printf("dmp_set_fifo_rate complete ......\r\n");
 		run_self_test();
 		if (!mpu_set_dmp_state(1)) {}

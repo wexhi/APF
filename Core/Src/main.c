@@ -228,15 +228,16 @@ void OLED_Show()
 float MovePidLine(float distance)
 {
 	wheel.target_pos = distance;
+
 	float res = Position_PID(&wheel, Mileage);
 	return res;
 }
 
 float XianFuSpeed(float speed, float Lim_Speed)
 {
-	if (speed > 3.5)
+	if (speed > 3)
 	{
-		speed = 3.5;
+		speed = 3;
 	}
 	else if (speed < Lim_Speed && speed > 0)
 	{
@@ -258,14 +259,38 @@ void MoveTo(float target_x, float target_y, float Lim_Speed)
 	
 	float distance = sqrt(delta_x * delta_x + delta_y * delta_y);
 	float angle = atan2(delta_y, delta_x) - Yaw;
-	float WheelLSpeed = Lim_Speed - MotorTurnAngle(angle) + MovePidLine(distance);
+	float WheelLSpeed = Lim_Speed + MovePidLine(distance) - MotorTurnAngle(angle);
 	float WheelRSpeed = Lim_Speed + MotorTurnAngle(angle) + MovePidLine(distance);
 	WheelLSpeed = XianFuSpeed(WheelLSpeed, Lim_Speed); WheelRSpeed = XianFuSpeed(WheelRSpeed, Lim_Speed);
+	if (WheelLSpeed == 0 && WheelRSpeed == 0 )
+	{
+		current_x = target_x;
+		current_y = target_y;
+	}
 	MotorPidSetSpeed(WheelLSpeed, WheelRSpeed);
+}
+
+void ContinueMoveTo(float target_x, float target_y, float Lim_Speed)
+{
+	Mileage = 0;
+	while (1)
+	{
+		OLED_Show();
+		Read_DMP();
+		MoveTo(target_x, target_y, Lim_Speed);
+
+		if (current_x == target_x && current_y == target_y)
+		{
+			OLED_Show();
+			LED1_TOGGLE();
+			return;
+		}
+	}
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
+	
 	if (htim->Instance == TIM3) // 1000hz 10ms
 	{	  
 		
@@ -284,13 +309,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			
 		}
 		if (Timer1Count % 2 == 0) //20ms
-		{
+		{	 
+			
 			Mileage += 10 * (Motor1Speed + Motor2Speed) / 2 * 0.02 * 0.044; // dm
 			Moto1 = PID_realize(&pidMotor1Speed, Motor1Speed);
 			Moto2 = PID_realize(&pidMotor2Speed, Motor2Speed);
 			//Motor_Control(Moto1, Moto2);
-			Timer1Count = 0;
-		}	
+			
+		}
 	}
 }
 
@@ -358,6 +384,8 @@ int main(void)
 
 	LED1_OFF();
 
+	ContinueMoveTo(10, 0, 1);
+	ContinueMoveTo(20, 0, 1);
 
   /* USER CODE END 2 */
 
@@ -368,17 +396,23 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  OLED_Show();
-	  Read_DMP();;
-	  //MotorTurnAngle(30, 0);
-	  //MotorPidSetSpeed(0, 3);
-	  MoveTo(10, 0, 1);
-	  //delay_ms(50);
-	  
-
+//	  OLED_Show();
+//	  Read_DMP();
+//
+//	  
+//	  MoveTo(20, 0, 1);
+//
+//	  if (current_x == 20 && current_y == 0)
+//	  {
+//		  LED1_ON();
+//		  break;
+//	  }
   }
   /* USER CODE END 3 */
+	
 }
+
+
 
 /**
   * @brief System Clock Configuration
