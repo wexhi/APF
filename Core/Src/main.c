@@ -239,6 +239,10 @@ float XianFuSpeed(float speed, float Lim_Speed)
 	{
 		speed = 3;
 	}
+	else if(speed <= -3)
+	{
+		speed = -3;
+	}
 	else if (speed < Lim_Speed && speed > 0)
 	{
 		speed = 0;
@@ -258,7 +262,9 @@ void MoveTo(float target_x, float target_y, float Lim_Speed)
 	}
 	
 	float distance = sqrt(delta_x * delta_x + delta_y * delta_y);
-	float angle = atan2(delta_y, delta_x) - Yaw;
+	//float a = atan2(delta_y, delta_x) * 180 / 3.1415926;
+	float angle = atan2(delta_y, delta_x) * 180 / 3.1415926;
+	//float angle = a - Yaw;
 	float WheelLSpeed = Lim_Speed + MovePidLine(distance) - MotorTurnAngle(angle);
 	float WheelRSpeed = Lim_Speed + MotorTurnAngle(angle) + MovePidLine(distance);
 	WheelLSpeed = XianFuSpeed(WheelLSpeed, Lim_Speed); WheelRSpeed = XianFuSpeed(WheelRSpeed, Lim_Speed);
@@ -272,6 +278,7 @@ void MoveTo(float target_x, float target_y, float Lim_Speed)
 
 void ContinueMoveTo(float target_x, float target_y, float Lim_Speed)
 {
+	//DMP_Init();
 	Mileage = 0;
 	while (1)
 	{
@@ -311,7 +318,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		if (Timer1Count % 2 == 0) //20ms
 		{	 
 			
-			Mileage += 10 * (Motor1Speed + Motor2Speed) / 2 * 0.02 * 0.044; // dm
+			Mileage += 33.9 * (Motor1Speed + Motor2Speed) / 2 * 0.02 * 0.044; // dm
 			Moto1 = PID_realize(&pidMotor1Speed, Motor1Speed);
 			Moto2 = PID_realize(&pidMotor2Speed, Motor2Speed);
 			//Motor_Control(Moto1, Moto2);
@@ -384,8 +391,8 @@ int main(void)
 
 	LED1_OFF();
 
-	ContinueMoveTo(10, 0, 1);
-	ContinueMoveTo(20, 0, 1);
+	ContinueMoveTo(6, 0, 1);
+	ContinueMoveTo(6, -6, 1);
 
   /* USER CODE END 2 */
 
