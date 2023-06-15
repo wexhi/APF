@@ -391,8 +391,10 @@ int main(void)
 
 	LED1_OFF();
 
-	ContinueMoveTo(6, 0, 1);
-	ContinueMoveTo(6, -6, 1);
+	ContinueMoveTo(4.3, -2.16, 1);
+	ContinueMoveTo(6.2, -0.7, 1);
+	ContinueMoveTo(12, -6, 1);
+	
 
   /* USER CODE END 2 */
 

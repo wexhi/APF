@@ -1,21 +1,21 @@
 clear;clc
     % 参数设置
-    start = [14, 8];   % 创建机器人起始位置
-    goal = [5.9, 6];        % 目标位置
+    start = [0, 0];   % 创建机器人起始位置
+    goal = [12, -6];        % 目标位置
     k_att = 1;              % 引力增益参数
     k_rep = 20;             % 斥力增益参数
     d_safe = 3;             % 安全距离        
     
     
     % 创建障碍物
-    obstacles = [9.3, 8.6; 11.4,7.8; 9.9, 7.2;10.8, 9];
+    obstacles = [7,-4];
     
     % 创建机器人起始位置
     robot = start;
     
     % 迭代次数和步长
     maxIterations = 100;
-    stepSize = 0.1;
+    stepSize = 0.2;
     
     % 轨迹记录器
     trajectory = robot;
@@ -50,7 +50,7 @@ clear;clc
         plot(obstacles(:, 1), obstacles(:, 2), 'ks', 'MarkerSize', 8);
         plot(trajectory(:, 1), trajectory(:, 2), 'g--', 'LineWidth', 1);
         xlim([0, 14]);
-        ylim([0, 14]);
+        ylim([-14, 0]);
         drawnow;
         
         % 判断是否到达目标位置
