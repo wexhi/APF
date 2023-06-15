@@ -42,7 +42,7 @@ void PID_init(void)
 	pidMPU6050YawMovement.err_sum = 0;
 	pidMPU6050YawMovement.Kp = 0.9;
 	pidMPU6050YawMovement.Ki = 0;
-	pidMPU6050YawMovement.Kd = 0.1;
+	pidMPU6050YawMovement.Kd = 0.2;
 	
 	pidMPU6050PitchMovement.target_val = 0;
 	pidMPU6050PitchMovement.actual_val = 0;
