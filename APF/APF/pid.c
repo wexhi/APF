@@ -31,7 +31,7 @@ void PID_init(void)
 	wheel.err = 0;
 	wheel.err_last = 0;
 	wheel.err_sum = 0;
-	wheel.Kp = 0.23;
+	wheel.Kp = 0.20;
 	wheel.Ki = 0.03;
 	wheel.Kd = 0;
 	
@@ -112,14 +112,11 @@ float Position_PID(Car * pid, float actual_val)
 	pid->err = pid->target_pos - pid->actual_pos;
 	if (fabs(pid->err) < 0.1)
 	{
-		pid->err_sum = 0;
-		pid->err_last = 0;
 		return 0;
 	}
 	else
 	{
-		pid->actual_pos = pid->Kp * pid->err + pid->Ki * pid->err_sum + pid->Kd * (pid->err - pid->err_last);
-		pid->err_last = pid->err;
+		pid->actual_pos = pid->Kp * pid->err ;
 	
 		return pid->actual_pos;
 	}

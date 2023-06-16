@@ -239,11 +239,11 @@ float XianFuSpeed(float speed, float Lim_Speed)
 	{
 		speed = 3;
 	}
-//	else if(speed <= 0)
-//	{
-//		speed = 0;
-//	}
-	else if (speed < Lim_Speed)
+	else if(speed < -1)
+	{
+		speed = -1;
+	}
+	else if (speed < Lim_Speed && speed >= -1)
 	{
 		speed = 0;
 	}
@@ -289,11 +289,12 @@ void ContinueMoveTo(float target_x, float target_y, float Lim_Speed)
 		if (current_x == target_x && current_y == target_y)
 		{
 			stop();
-			Delay_ms(20);
+			//Delay_ms(20);
 			OLED_Show();
 			//LED1_TOGGLE();
 			return;
 		}
+
 	}
 }
 
@@ -320,9 +321,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		if (Timer1Count % 2 == 0) //20ms
 		{	 
 			
-			Mileage += 33.9 * (Motor1Speed + Motor2Speed) / 2 * 0.02 * 0.044; // dm
-			Moto1 = PID_realize(&pidMotor1Speed, Motor1Speed);
-			Moto2 = PID_realize(&pidMotor2Speed, Motor2Speed);
+			Mileage += 31.6 * (Motor1Speed + Motor2Speed) / 2 * 0.02 * 0.044; // dm
+//			Moto1 = PID_realize(&pidMotor1Speed, Motor1Speed);
+//			Moto2 = PID_realize(&pidMotor2Speed, Motor2Speed);
 			//Motor_Control(Moto1, Moto2);
 			
 		}
@@ -393,15 +394,15 @@ int main(void)
 
 	LED1_OFF();
 
-	float x[5] = { 8.6, 11.4, 12, 15.7, 18 };
-	float y[5] = { 2.6, 4.6, 6.7, 7.5, 6 };
-	for (int i = 0; i < 5; i++)
-	{
-		ContinueMoveTo(x[i], y[i], 1);
-	}
+//	float x[5] = { 8.6, 11.4, 12, 15.7, 18 };
+//	float y[5] = { 2.6, 4.6, 6.7, 7.5, 6 };
+//	for (int i = 0; i < 5; i++)
+//	{
+//		ContinueMoveTo(x[i], y[i], 1);
+//	}
 	
-//	ContinueMoveTo(6.1, 3.0, 1);
-//	ContinueMoveTo(8.43, 2.9, 1);
+	ContinueMoveTo(6, 0, 1);
+	ContinueMoveTo(12, 6, 1);
 //	ContinueMoveTo(10., 3.4, 1);
 //	ContinueMoveTo(12, 6,1);
 	
