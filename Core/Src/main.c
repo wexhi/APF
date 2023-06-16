@@ -239,11 +239,11 @@ float XianFuSpeed(float speed, float Lim_Speed)
 	{
 		speed = 3;
 	}
-	else if(speed <= -1)
-	{
-		speed = -1;
-	}
-	else if (speed < Lim_Speed && speed > 0)
+//	else if(speed <= 0)
+//	{
+//		speed = 0;
+//	}
+	else if (speed < Lim_Speed)
 	{
 		speed = 0;
 	}
