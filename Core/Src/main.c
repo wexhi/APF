@@ -239,9 +239,9 @@ float XianFuSpeed(float speed, float Lim_Speed)
 	{
 		speed = 3;
 	}
-	else if(speed <= -3)
+	else if(speed <= -1)
 	{
-		speed = -3;
+		speed = -1;
 	}
 	else if (speed < Lim_Speed && speed > 0)
 	{
@@ -288,6 +288,8 @@ void ContinueMoveTo(float target_x, float target_y, float Lim_Speed)
 
 		if (current_x == target_x && current_y == target_y)
 		{
+			stop();
+			Delay_ms(20);
 			OLED_Show();
 			LED1_TOGGLE();
 			return;
@@ -391,9 +393,17 @@ int main(void)
 
 	LED1_OFF();
 
-	ContinueMoveTo(4.3, -2.16, 1);
-	ContinueMoveTo(6.2, -0.7, 1);
-	ContinueMoveTo(12, -6, 1);
+	float x[5] = { 8.6, 11.4, 12, 15.7, 18 };
+	float y[5] = { 2.6, 4.6, 6.7, 7.5, 6 };
+	for (int i = 0; i < 5; i++)
+	{
+		ContinueMoveTo(x[i], y[i], 1);
+	}
+	
+//	ContinueMoveTo(6.1, 3.0, 1);
+//	ContinueMoveTo(8.43, 2.9, 1);
+//	ContinueMoveTo(10., 3.4, 1);
+//	ContinueMoveTo(12, 6,1);
 	
 
   /* USER CODE END 2 */
@@ -405,8 +415,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-//	  OLED_Show();
-//	  Read_DMP();
+	  OLED_Show();
+	  Read_DMP();
 //
 //	  
 //	  MoveTo(20, 0, 1);

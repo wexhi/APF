@@ -40,7 +40,7 @@ void PID_init(void)
 	pidMPU6050YawMovement.err = 0;
 	pidMPU6050YawMovement.err_last = 0;
 	pidMPU6050YawMovement.err_sum = 0;
-	pidMPU6050YawMovement.Kp = 0.06;
+	pidMPU6050YawMovement.Kp = 0.07;
 	pidMPU6050YawMovement.Ki = 0;
 	pidMPU6050YawMovement.Kd = 1.5;
 	
@@ -84,15 +84,15 @@ float PID_Anglerealize(tPid * pid, float actual_val)
 	
 
 	pid->err_sum += pid->err;
-	if (pid->err_sum > 1000) pid->err_sum = 1000;
-	if (pid->err_sum < -1000) pid->err_sum = -1000;
+	if (pid->err_sum > 5) pid->err_sum = 5;
+	if (pid->err_sum < -5) pid->err_sum = -5;
 	pid->actual_val = pid->Kp * pid->err + pid->Ki * pid->err_sum + pid->Kd * (pid->err - pid->err_last);
 	
 	//pid->actual_val += pid->Kp * (pid->err - pid->err_last) + pid->Ki * pid->err + pid->Kd * (pid->err - 2 * pid->err_last + pid->err_prev);
 	pid->err_prev = pid->err_last;
 	pid->err_last = pid->err;
 	
-	if (fabs(pid->actual_val) <= 0.5)
+	if (fabs(pid->actual_val) <= 0.1)
 	{
 		return 0;
 	}
