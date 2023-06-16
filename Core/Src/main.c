@@ -291,7 +291,7 @@ void ContinueMoveTo(float target_x, float target_y, float Lim_Speed)
 			stop();
 			Delay_ms(20);
 			OLED_Show();
-			LED1_TOGGLE();
+			//LED1_TOGGLE();
 			return;
 		}
 	}
