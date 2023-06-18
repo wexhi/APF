@@ -391,12 +391,17 @@ int main(void)
 
 	LED1_OFF();
 
-	float x[5] = { 6, 12, 12, 15.7, 18 };
-	float y[5] = { 6, 0, 6.7, 7.5, 6 };
-	for (int i = 0; i < 2; i++)
-	{
-		ContinueMoveTo(x[i], y[i], 1);
-	}
+	current_x = 0.13;
+	current_y = 0.12;
+	
+//	float x[5] = { 6.6, 8.5, 8.5, 17.5, 18 };
+//	float y[5] = { 0, 10, 12, 17.5,18};
+////	float x[5] = { 6.6, 8.5, 8.5, 15.5, 18.5 };
+////	float y[5] = { 0, 10, 10.5, 15.5, 18.5 };
+//	for (int i = 0; i < 4; i++)
+//	{
+//		ContinueMoveTo(x[i], y[i], 1);
+//	}
 	
 //	ContinueMoveTo(6, 0, 1);
 //	ContinueMoveTo(12, 6, 1);

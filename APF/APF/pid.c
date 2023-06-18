@@ -31,7 +31,7 @@ void PID_init(void)
 	wheel.err = 0;
 	wheel.err_last = 0;
 	wheel.err_sum = 0;
-	wheel.Kp = 0.20;
+	wheel.Kp = 0.18;
 	wheel.Ki = 0.03;
 	wheel.Kd = 0;
 	
@@ -40,7 +40,7 @@ void PID_init(void)
 	pidMPU6050YawMovement.err = 0;
 	pidMPU6050YawMovement.err_last = 0;
 	pidMPU6050YawMovement.err_sum = 0;
-	pidMPU6050YawMovement.Kp = 0.07;
+	pidMPU6050YawMovement.Kp = 0.09;
 	pidMPU6050YawMovement.Ki = 0;
 	pidMPU6050YawMovement.Kd = 1.5;
 	
