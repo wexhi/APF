@@ -289,9 +289,6 @@ void ContinueMoveTo(float target_x, float target_y, float Lim_Speed)
 		if (current_x == target_x && current_y == target_y)
 		{
 			stop();
-			//Delay_ms(20);
-			OLED_Show();
-			//LED1_TOGGLE();
 			return;
 		}
 
@@ -394,15 +391,15 @@ int main(void)
 
 	LED1_OFF();
 
-//	float x[5] = { 8.6, 11.4, 12, 15.7, 18 };
-//	float y[5] = { 2.6, 4.6, 6.7, 7.5, 6 };
-//	for (int i = 0; i < 5; i++)
-//	{
-//		ContinueMoveTo(x[i], y[i], 1);
-//	}
+	float x[5] = { 6, 12, 12, 15.7, 18 };
+	float y[5] = { 6, 0, 6.7, 7.5, 6 };
+	for (int i = 0; i < 2; i++)
+	{
+		ContinueMoveTo(x[i], y[i], 1);
+	}
 	
-	ContinueMoveTo(6, 0, 1);
-	ContinueMoveTo(12, 6, 1);
+//	ContinueMoveTo(6, 0, 1);
+//	ContinueMoveTo(12, 6, 1);
 //	ContinueMoveTo(10., 3.4, 1);
 //	ContinueMoveTo(12, 6,1);
 	
