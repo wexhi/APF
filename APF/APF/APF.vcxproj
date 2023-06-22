@@ -52,7 +52,7 @@
       <LibrarySearchDirectories>%(Link.LibrarySearchDirectories)</LibrarySearchDirectories>
       <AdditionalLibraryNames>%(Link.AdditionalLibraryNames)</AdditionalLibraryNames>
       <AdditionalLinkerInputs>%(Link.AdditionalLinkerInputs)</AdditionalLinkerInputs>
-      <LinkerScript>C:\Users\14775\source\repos\APF\STM32CubeIDE\STM32F103RCTX_FLASH.ld</LinkerScript>
+      <LinkerScript>C:\Users\wexhi\Desktop\study\cubeMX\APF\STM32CubeIDE\STM32F103RCTX_FLASH.ld</LinkerScript>
       <AdditionalOptions />
     </Link>
   </ItemDefinitionGroup>
@@ -68,7 +68,7 @@
       <LibrarySearchDirectories>%(Link.LibrarySearchDirectories)</LibrarySearchDirectories>
       <AdditionalLibraryNames>%(Link.AdditionalLibraryNames)</AdditionalLibraryNames>
       <AdditionalLinkerInputs>%(Link.AdditionalLinkerInputs)</AdditionalLinkerInputs>
-      <LinkerScript>C:\Users\14775\source\repos\APF\STM32CubeIDE\STM32F103RCTX_FLASH.ld</LinkerScript>
+      <LinkerScript>C:\Users\wexhi\Desktop\study\cubeMX\APF\STM32CubeIDE\STM32F103RCTX_FLASH.ld</LinkerScript>
       <AdditionalOptions />
     </Link>
   </ItemDefinitionGroup>
