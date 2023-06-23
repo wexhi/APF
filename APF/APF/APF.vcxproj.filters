@@ -261,5 +261,79 @@
     <None Include="stm32.xml">
       <Filter>VisualGDB settings</Filter>
     </None>
+    <ClCompile Include="bsp_oled.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="cJSON.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="mpu6050\bsp_SysTick.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="mpu6050\filter.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="mpu6050\inv_mpu.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="mpu6050\inv_mpu_dmp_motion_driver.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="mpu6050\IOI2C.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="mpu6050\MPU6050.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="niming.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="pid.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bsp_oled.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="cJSON.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="mpu6050\bsp_SysTick.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="mpu6050\dmpKey.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="mpu6050\dmpmap.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="mpu6050\filter.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="mpu6050\inv_mpu.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="mpu6050\inv_mpu_dmp_motion_driver.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="mpu6050\IOI2C.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="mpu6050\mpu6050.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="niming.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="oledfont.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="pid.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
