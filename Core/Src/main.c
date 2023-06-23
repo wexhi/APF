@@ -402,12 +402,6 @@ int main(void)
 //		ContinueMoveTo(x[i], y[i], 1);
 //	}
 	
-//	ContinueMoveTo(6, 0, 1);
-//	ContinueMoveTo(12, 6, 1);
-//	ContinueMoveTo(10., 3.4, 1);
-//	ContinueMoveTo(12, 6,1);
-	
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -419,21 +413,9 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  OLED_Show();
 	  Read_DMP();
-//
-//	  
-//	  MoveTo(20, 0, 1);
-//
-//	  if (current_x == 20 && current_y == 0)
-//	  {
-//		  LED1_ON();
-//		  break;
-//	  }
   }
   /* USER CODE END 3 */
-	
 }
-
-
 
 /**
   * @brief System Clock Configuration
